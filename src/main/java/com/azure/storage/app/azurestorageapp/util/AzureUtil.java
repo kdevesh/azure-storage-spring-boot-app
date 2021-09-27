@@ -68,7 +68,7 @@ public class AzureUtil {
    * @param prefix    the prefix
    * @return the list
    */
-  public List<BlobItem> fetchReportsFromAzure(String container, String prefix) {
+  public List<BlobItem> fetchBlobsFromAzure(String container, String prefix) {
     try {
       Integer fetchPageSize = 1000;
       BlobContainerClient blobContainerClient = getBlobContainerClient(container);
@@ -93,14 +93,14 @@ public class AzureUtil {
   }
 
   /**
-   * Download report from azure.
+   * Download blob from azure.
    *
    * @param outputStream the output stream
    * @param container    the container
    * @param blobName     the blob name
    */
-  public void downloadReportFromAzure(OutputStream outputStream, String container,
-                                      String blobName) {
+  public void downloadBlobFromAzure(OutputStream outputStream, String container,
+                                    String blobName) {
     BlobClient blobClient = getBlobClient(container, blobName);
     blobClient.downloadStreamWithResponse(outputStream, null,
         new DownloadRetryOptions().setMaxRetryRequests(5),

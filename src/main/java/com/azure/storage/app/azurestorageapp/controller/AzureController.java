@@ -74,7 +74,7 @@ public class AzureController {
   public ResponseEntity<List<BlobItem>> listFiles(@PathVariable String prefix) {
     logger.info("List files starting with:{}", prefix);
     try {
-      List<BlobItem> blobItems = azureUtil.fetchReportsFromAzure(azureStorageConfiguration.getStorageContainer(), prefix);
+      List<BlobItem> blobItems = azureUtil.fetchBlobsFromAzure(azureStorageConfiguration.getStorageContainer(), prefix);
       return ResponseEntity.ok().body(blobItems);
     } catch (Exception ex) {
       logger.error("Exception occurred:ex:{}", ex.getMessage());
@@ -121,7 +121,7 @@ public class AzureController {
       response.setContentType("application/octet-stream");
       response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName);
       outputStream = response.getOutputStream();
-      azureUtil.downloadReportFromAzure(outputStream, azureStorageConfiguration.getStorageContainer(), fileName);
+      azureUtil.downloadBlobFromAzure(outputStream, azureStorageConfiguration.getStorageContainer(), fileName);
       outputStream.flush();
     } catch (Exception ex) {
       logger.error("Exception occurred:{}", ex.getMessage());
